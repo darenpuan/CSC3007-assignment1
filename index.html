@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 1</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="http://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css"
+    />
+    <link rel="stylesheet" href="assets/index.css" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Daren</span>
+      </div>
+    </nav>
+    <section class="main">
+      <div class="container">
+        <h1>
+          PSI Levels
+          <small class="timestamp"
+            >Last Updated at <span id="time"></span
+          ></small>
+        </h1>
+        <table
+          class="table table-bordered table-striped"
+          id="table"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>National</th>
+              <th>West</th>
+              <th>East</th>
+              <th>North</th>
+              <th>South</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+    Ï
+    <div class="container footerContainer">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top"
+      >
+        <div class="col-md-4 d-flex align-items-center">
+          <span class="mb-3 mb-md-0 text-muted">© 2022 Daren</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <script src="http://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script>
+    $(document).ready(function () {
+      $.getJSON("https://api.data.gov.sg/v1/environment/psi", function (data) {
+        var row = "";
+        var readings = data["items"][0].readings;
+        var timestamp = data["items"][0].update_timestamp;
+        timestamp = moment(timestamp).format("DD MMM YYYY, hh:mm a");
+        document.getElementById("time").innerHTML = timestamp;
+        $.each(readings, function (key, value) {
+          var metric = key;
+          var reading = value;
+          row += "<tr>";
+          row += "<td>" + key + "</td>";
+          row += "<td>" + reading["national"] + "</td>";
+          row += "<td>" + reading["west"] + "</td>";
+          row += "<td>" + reading["east"] + "</td>";
+          row += "<td>" + reading["north"] + "</td>";
+          row += "<td>" + reading["south"] + "</td>";
+          row += "</tr>";
+        });
+        $("#table").append(row);
+        $("#table").DataTable();
+      });
+    });
+  </script>
+</html>
