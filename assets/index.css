@@ -2,7 +2,7 @@ body {
   background-color: #fefefe;
 }
 .main {
-  min-height: 80vh;
+  /* min-height: 100vh; */
   margin-top: 20px;
 }
 
@@ -20,7 +20,7 @@ table.dataTable {
 }
 
 .footerContainer {
-  position: absolute;
+  position: static;
   left: 0;
   right: 0;
   bottom: 0;
