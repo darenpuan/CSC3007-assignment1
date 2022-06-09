@@ -15,6 +15,10 @@
       rel="stylesheet"
       href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css"
+    />
     <link rel="stylesheet" href="assets/index.css" />
 
     <script
@@ -75,6 +79,8 @@
     crossorigin="anonymous"
   ></script>
   <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.min.js"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>
   <script>
     $(document).ready(function () {
@@ -97,7 +103,9 @@
           row += "</tr>";
         });
         $("#table").append(row);
-        $("#table").DataTable();
+        $("#table").DataTable({
+          responsive: true,
+        });
       });
     });
   </script>
